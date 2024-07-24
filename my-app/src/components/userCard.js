@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
+import { FavoriteContext } from "./FavoriteContext";
 import "./userCard.css";
 
-const Card = ({ name, avatar, isFavorite, onFavoriteToggle }) => {
+const Card = ({ name, avatar, id }) => {
+  const { favorites, handleFavoriteToggle } = useContext(FavoriteContext);
+  const isFavorite = favorites.some((fav) => fav.id === id);
+
   return (
     <div className="card">
       {avatar ? (
@@ -13,7 +17,7 @@ const Card = ({ name, avatar, isFavorite, onFavoriteToggle }) => {
         <h3>{name}</h3>
         <button
           className={`favorite-icon ${isFavorite ? "favorited" : ""}`}
-          onClick={onFavoriteToggle}
+          onClick={() => handleFavoriteToggle(id)}
         >
           {isFavorite ? "★" : "☆"}
         </button>

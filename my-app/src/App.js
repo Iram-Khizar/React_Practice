@@ -1,48 +1,28 @@
-import React, { useState } from "react";
+import React from "react";
 import "./App.css";
 import users from "./components/data";
 import Card from "./components/userCard";
 import Favorites from "./components/favorite";
+import { FavoriteProvider } from "./components/FavoriteContext";
 
 function App() {
-  const [favorites, setFavorites] = useState([]);
-
-  const handleFavoriteToggle = (userId) => {
-    setFavorites((prevFavorites) => {
-      if (prevFavorites.find((user) => user.id === userId)) {
-        return prevFavorites.filter((user) => user.id !== userId);
-      } else {
-        const newUser = users.find((user) => user.id === userId);
-        return [...prevFavorites, newUser];
-      }
-    });
-  };
-
-  const handleRemoveFavorite = (userId) => {
-    setFavorites((prevFavorites) =>
-      prevFavorites.filter((user) => user.id !== userId)
-    );
-  };
-
   return (
-    <div className="App">
-      <h1>Google Meet Style User Cards</h1>
-      <div className="card-list">
-        {users.map((user) => (
-          <Card
-            key={user.id}
-            name={user.name}
-            avatar={user.avatar}
-            isFavorite={favorites.some((fav) => fav.id === user.id)}
-            onFavoriteToggle={() => handleFavoriteToggle(user.id)}
-          />
-        ))}
+    <FavoriteProvider>
+      <div className="App">
+        <h1>Google Meet Style User Cards</h1>
+        <div className="card-list">
+          {users.map((user) => (
+            <Card
+              key={user.id}
+              id={user.id}
+              name={user.name}
+              avatar={user.avatar}
+            />
+          ))}
+        </div>
+        <Favorites />
       </div>
-      <Favorites
-        favorites={favorites}
-        onRemoveFavorite={handleRemoveFavorite}
-      />
-    </div>
+    </FavoriteProvider>
   );
 }
 

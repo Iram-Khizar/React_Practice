@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
+import { FavoriteContext } from "./FavoriteContext";
 import Card from "./userCard";
 import "./userCard.css";
 
-const Favorites = ({ favorites, onRemoveFavorite }) => {
+const Favorites = () => {
+  const { favorites, handleRemoveFavorite } = useContext(FavoriteContext);
+
   return (
     <div>
       <h2>Favorite Users</h2>
@@ -13,10 +16,11 @@ const Favorites = ({ favorites, onRemoveFavorite }) => {
           favorites.map((user) => (
             <Card
               key={user.id}
+              id={user.id}
               name={user.name}
               avatar={user.avatar}
               isFavorite={true}
-              onFavoriteToggle={() => onRemoveFavorite(user.id)}
+              onFavoriteToggle={() => handleRemoveFavorite(user.id)}
             />
           ))
         )}

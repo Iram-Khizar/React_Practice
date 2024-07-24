@@ -40,15 +40,25 @@
 .App {
   font-family: Arial, sans-serif;
   text-align: center;
-  padding: 20px;
+}
+
+h1 {
+  color: #333;
 }
 
 .card-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  gap: 20px;
+  margin: 20px 0;
 }
 
 h2 {
+  color: #333;
   margin-top: 40px;
+}
+
+p {
+  color: #666;
 }
